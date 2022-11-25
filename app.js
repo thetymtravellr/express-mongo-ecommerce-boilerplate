@@ -23,7 +23,9 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 app.use('/', require('./routes/root'))
 app.use('/users', require('./routes/userRoutes'))
 app.use('/products', require('./routes/productRoutes'))
-
+app.use('/payments', require('./routes/paymentRoutes'))
+app.use('/bkash', require('./routes/bkashPaymentRoutes'))
+app.use('/refunds', require('./routes/refundRoutes'))
 
 app.all('*', (req, res) => {
     res.status(404)
