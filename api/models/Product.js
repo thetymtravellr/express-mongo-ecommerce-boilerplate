@@ -13,16 +13,32 @@ const productSchema = new mongoose.Schema({
         min: 0,
         max: 1000000
     },
-    category: {
-        type: String,
-        required: true
-    },
+    size: [
+        {
+            type: Number,
+            required: true,  
+        }
+    ],
+    category: [
+        {
+            type: String,
+            required: true
+        }
+    ],
     description: {
         type: String,
         required: true,
         minlength: 3,
         maxlength: 1000
-    }
+    },
+
+    image: [
+        {
+            type: String,
+            required: true
+        }
+    ],
+    
 },
     {
         timestamps: true

@@ -34,14 +34,21 @@ const getSingleProducts = asyncHandler(async (req, res) => {
 // @route POST /product
 // @access Private
 const createNewProduct = asyncHandler(async (req, res) => {
-    const { title, price, category, description } = req.body
+    const { title, price, size, description } = req.body
 
     // Confirm data
-    if (!title || !price || !Array.isArray(category) || !description) {
+    if (!title || !price || !Array.isArray(size) || !description) {
         return res.status(400).json({ message: 'All fields are required' })
     }
 
-    const productObject = { title, price, category, description }
+    const productObject = { 
+        title, 
+        price, 
+        image,
+        size,
+        category: ['sneakers'], 
+        description 
+    }
 
     // Create and store new user 
     const product = await Product.create(productObject)
@@ -58,10 +65,10 @@ const createNewProduct = asyncHandler(async (req, res) => {
 // @access Private
 const updateProduct = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { title, price, category, description } = req.body
+    const { title, price, size, description } = req.body
 
     // Confirm data 
-    if (!title || !price || !Array.isArray(category) || !description) {
+    if (!title || !price || !Array.isArray(size) || !description) {
         return res.status(400).json({ message: 'All fields are required' })
     }
 
@@ -74,7 +81,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 
     product.title = title
     product.price = price
-    product.category = category
+    product.size = size
     product.description = description
 
     const updateProduct = await product.save()
