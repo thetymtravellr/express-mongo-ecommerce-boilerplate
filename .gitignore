@@ -3,3 +3,4 @@ node_modules
 .env.production
 .env.development
 logs
+LIST.md

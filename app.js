@@ -11,8 +11,6 @@ const connectDB = require('./config/dbConnection')
 const mongoose = require('mongoose')
 const PORT = process.env.PORT || 3500
 
-console.log(process.env.NODE_ENV)
-
 connectDB()
 
 app.use(logger)
@@ -23,8 +21,8 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 app.use('/', require('./routes/root'))
 app.use('/users', require('./routes/userRoutes'))
 app.use('/products', require('./routes/productRoutes'))
+app.use('/product', require('./routes/productRoutes'))
 app.use('/payments', require('./routes/paymentRoutes'))
-app.use('/bkash', require('./routes/bkashPaymentRoutes'))
 app.use('/refunds', require('./routes/refundRoutes'))
 
 app.all('*', (req, res) => {

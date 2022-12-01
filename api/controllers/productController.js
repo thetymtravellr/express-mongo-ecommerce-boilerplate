@@ -15,6 +15,21 @@ const getAllProducts = asyncHandler(async (req, res) => {
     res.json(products)
 })
 
+// @desc Get single product
+// @route GET /product/:id
+// @access Private
+const getSingleProducts = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    // Get all users from MongoDB
+    const product = await Product.findById(id);
+
+    // If no users 
+    if (!product) {
+        return res.status(400).json({ message: 'No product found' })
+    }
+    res.json(product)
+})
+
 // @desc Create new product
 // @route POST /product
 // @access Private
@@ -38,18 +53,19 @@ const createNewProduct = asyncHandler(async (req, res) => {
     }
 })
 
-// @desc Update a user
-// @route PATCH /users
+// @desc Update a product
+// @route PATCH /product/:id
 // @access Private
 const updateProduct = asyncHandler(async (req, res) => {
-    const { id, title, price, category, description } = req.body
+    const { id } = req.params;
+    const { title, price, category, description } = req.body
 
     // Confirm data 
-    if (!id || !title || !price || !Array.isArray(category) || !description) {
+    if (!title || !price || !Array.isArray(category) || !description) {
         return res.status(400).json({ message: 'All fields are required' })
     }
 
-    // Does the user exist to update?
+    // Does the product exist to update?
     const product = await Product.findById(id).exec()
 
     if (!product) {
@@ -70,7 +86,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 // @route DELETE /users
 // @access Private
 const deleteProduct = asyncHandler(async (req, res) => {
-    const { id } = req.body
+    const { id } = req.params
 
     // Confirm data
     if (!id) {
@@ -95,5 +111,6 @@ module.exports = {
     getAllProducts,
     createNewProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getSingleProducts
 }
